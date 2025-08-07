@@ -1,8 +1,10 @@
 import { Link, NavLink } from "react-router";
 import logo from '../assets/react.svg';
+import { useContext } from "react";
+import { UserContext } from "../context/user/UserContext";
 
 export function Header() {
-    const isLoggedIn = true;
+    const {isLoggedIn}=useContext(UserContext)
 
     return (
         <header className="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom">
@@ -23,17 +25,18 @@ export function Header() {
                 </li>
             </ul>
             <div className="col-md-3 text-end">
-                {isLoggedIn ? (
+                {isLoggedIn ?
+                    (
                     <>
                         <Link to="/admin" className="btn btn-primary">Dashboard</Link>
                         <Link to="/logout" className="btn">Logout</Link>
-                    </>
-                ) : (
-                    <>
+                        </>)
+                    :
+                    (<>
                         <Link to="/register" className="btn btn-primary">Register</Link>
                         <Link to="/login" className="btn">Login</Link>
                     </>
-                )}
+                    )}
             </div>
         </header>
     );

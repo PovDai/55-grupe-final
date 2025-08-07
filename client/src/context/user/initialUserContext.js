@@ -1,10 +1,12 @@
 export const initialUserContext = {
-    isLoggedIn: true,
+    isLoggedIn: false,
     role: 'public',
     email: '',
     userId: 0,
+    color: 'none',
     login: () => { },
     logout: () => { },
+    tapIn:()=>{ },
 };
 
 // PASTABOS:

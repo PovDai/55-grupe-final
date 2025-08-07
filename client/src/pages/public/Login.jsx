@@ -5,13 +5,15 @@ import { useContext } from "react";
 import { UserContext } from "../../context/user/UserContext";
 
 export function LoginPage() {
- const { isLoggedIn } = useContext(UserContext);
+    const { isLoggedIn, tapIn, color } = useContext(UserContext);
+    
 
     return (
         <main className="min-page-height">
             <PublicPageTitle title="Login" />
+            <button className="btn btn-warning" onClick={tapIn}>Click red</button>
 
-            <div className="container">
+            <div style={{backgroundColor: color }} className="container">
                 <div className="row">
                     {
                         isLoggedIn

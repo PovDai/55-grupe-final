@@ -21,6 +21,7 @@ export function UserContextWrapper(props) {
     const [role, setRole] = useState(initialUserContext.role);
     const [email, setEmail] = useState(initialUserContext.email);
     const [userId, setUserId] = useState(initialUserContext.userId);
+    const [color,setColor]=useState(initialUserContext.color)
 
     // 4. Prisijungimo funkcija
     function login(email, userId) {
@@ -28,6 +29,7 @@ export function UserContextWrapper(props) {
         setRole('admin'); // Nustatome rolę (realioje aplikacijoje gautume iš API)
         setEmail(email); // Išsaugome vartotojo el. paštą
         setUserId(userId); // Išsaugome vartotojo ID
+        setColor('none');
     }
 
     // 5. Atsijungimo funkcija
@@ -37,6 +39,15 @@ export function UserContextWrapper(props) {
         setRole(initialUserContext.role);
         setEmail(initialUserContext.email);
         setUserId(initialUserContext.userId);
+        setColor('none');
+    }
+    function tapIn() {
+          setIsLoggedIn(initialUserContext.isLoggedIn);
+        setRole(initialUserContext.role);
+        setEmail(initialUserContext.email);
+        setUserId(initialUserContext.userId);
+        setColor('red');
+        
     }
 
     // 6. Sukuriame objektą su visomis reikšmėmis ir funkcijomis
@@ -44,9 +55,11 @@ export function UserContextWrapper(props) {
         isLoggedIn, // Prisijungimo būsena
         role,      // Vartotojo rolė
         email,     // Vartotojo el. paštas
-        userId,    // Vartotojo ID
+        userId,
+        color,// Vartotojo ID
         login,     // Prisijungimo funkcija
         logout,    // Atsijungimo funkcija
+        tapIn,
     };
 
     // 7. Gražiname konteksto provider'į su reikšmėmis
