@@ -1,6 +1,16 @@
+import { useContext } from "react";
+import { UserContext } from "../../context/user/UserContext";
+
 export function LoginForm() {
+    const { login } = useContext(UserContext);
+
+    function handleFormSubmit(e) {
+        e.preventDefault();
+        login();
+    }
+
     return (
-        <form className="col-12 col-sm-10 col-md-8 col-lg-6 col-xl-4">
+        <form onSubmit={handleFormSubmit} className="col-12 col-sm-10 col-md-8 col-lg-6 col-xl-4">
             <div className="mb-4">
                 <label htmlFor="username_or_email" className="form-label">Username</label>
                 <input id="username_or_email" type="text" className="form-control fs-5" required="" />
