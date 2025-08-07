@@ -5,6 +5,7 @@ import { useContext } from "react";
 import { UserContext } from "../../context/user/UserContext";
 
 export function LoginPage() {
+ const { isLoggedIn } = useContext(UserContext);
 
     return (
         <main className="min-page-height">
@@ -22,6 +23,7 @@ export function LoginPage() {
                                     <Link to='/admin' className="btn btn-primary">Go to dashboard</Link>
                                 </div>
                             </>
+
                             : <LoginForm />
                     }
                 </div>
