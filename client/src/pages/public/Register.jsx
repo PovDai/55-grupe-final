@@ -3,7 +3,7 @@ import { RegisterForm } from "../../components/forms/RegisterForm";
 import { PublicPageTitle } from "../../components/PublicPageTitle";
 
 export function RegisterPage() {
-    const isLoggedIn = true;
+    const isLoggedIn =false;
 
     return (
         <main className="min-page-height">
