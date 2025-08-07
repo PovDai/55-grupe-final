@@ -42,11 +42,27 @@ export function UserContextWrapper(props) {
         setColor('none');
     }
     function tapIn() {
-          setIsLoggedIn(initialUserContext.isLoggedIn);
+          setIsLoggedIn(true);
         setRole(initialUserContext.role);
         setEmail(initialUserContext.email);
         setUserId(initialUserContext.userId);
         setColor('red');
+        
+    }
+     function tapGreen() {
+          setIsLoggedIn(true);
+        setRole(initialUserContext.role);
+        setEmail(initialUserContext.email);
+        setUserId(initialUserContext.userId);
+        setColor('green');
+        
+    }
+    function tapNone() {
+           setIsLoggedIn(true);
+        setRole(initialUserContext.role);
+        setEmail(initialUserContext.email);
+        setUserId(initialUserContext.userId);
+        setColor('white');
         
     }
 
@@ -60,6 +76,8 @@ export function UserContextWrapper(props) {
         login,     // Prisijungimo funkcija
         logout,    // Atsijungimo funkcija
         tapIn,
+        tapGreen,
+        tapNone,
     };
 
     // 7. Gražiname konteksto provider'į su reikšmėmis

@@ -6,7 +6,9 @@ export const initialUserContext = {
     color: 'none',
     login: () => { },
     logout: () => { },
-    tapIn:()=>{ },
+    tapIn: () => { },
+    tapGreen: () => { },
+    tapNone:()=>{},
 };
 
 // PASTABOS:
