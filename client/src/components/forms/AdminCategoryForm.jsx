@@ -10,7 +10,7 @@ export function AdminCategoryForm({category}) {
     function handleFormSubmit(e) {
         e.preventDefault();
       
-        fetch('http://localhost:5520/api/admin/categories', {
+        fetch('http://localhost:5521/api/admin/categories', {
             method: 'POST',
             headers: {
                 'Content-Type':'application/json',
