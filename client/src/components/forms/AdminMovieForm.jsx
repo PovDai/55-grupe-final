@@ -1,43 +1,23 @@
 import { useState } from 'react';
 import defaultImg from '../../assets/default.png';
 
-export function AdminMovieForm() {
-    const [img, setImg] = useState('');
-    const [title, setTitle] = useState('');
-    const [url, setUrl] = useState('');
-    const [description, setDescription] = useState('');
-    const [hours, setHours] = useState(0);
-    const [minutes, setMinutes] = useState(0);
-    const [category, setCategory] = useState(0);
-    const [releaseDate, setReleaseDate] = useState('');
-    const [rating, setRating] = useState(50);
-    const [status, setStatus] = useState('draft');
-
-    // const movie = {
-    //     img: '/vite.svg',
-    //     title: 'Action',
-    //     url: 'action',
-    //     description: 'Very action, much movie',
-    //     duration: 122,
-    //     category: 'Action',
-    //     releaseDate: '2025-06-07',
-    //     rating: 46,
-    //     status: 'published',
-    // };
+export function AdminMovieForm({ movie }) {
+    const [img, setImg] = useState(movie?.img ?? '');
+    const [title, setTitle] = useState(movie?.title ?? '');
+    const [url, setUrl] = useState(movie?.url ?? '');
+    const [description, setDescription] = useState(movie?.description ?? '');
+    const [hours, setHours] = useState(movie?.duration ? (movie.duration - movie.duration % 60) / 60 : 0);
+    const [minutes, setMinutes] = useState(movie?.duration ? movie.duration % 60 : 0);
+    const [categoryId, setCategoryId] = useState(movie?.categoryId ?? 0);
+    const [releaseDate, setReleaseDate] = useState(movie?.releaseDate ?? '');
+    const [rating, setRating] = useState(movie?.rating ?? 50);
+    const [status, setStatus] = useState(movie?.status ?? 'draft');
 
     const categories = [
-        {
-            id: 1,
-            name:'Action'
-        },
-        {id: 2,
-            name: 'Crime'
-        },
-        {id: 3,
-            name:'Documentary'}
+        { id: 1, name: 'Action' },
+        { id: 2, name: 'Crime' },
+        { id: 3, name: 'Documentary' },
     ];
-
-
 
     return (
         <>
@@ -45,7 +25,7 @@ export function AdminMovieForm() {
                 <img id="img_preview" className="d-block w-100 object-fit-contain"
                     style={{ height: '20rem', backgroundColor: '#eee' }}
                     src={img ? img : defaultImg} alt="Movie thumbnail" />
-                <p id="img_path">/img/default.png</p>
+                <p id="img_path">{img}</p>
                 <input type="file" className="form-control" id="img" name="img" />
             </form>
 
@@ -80,27 +60,27 @@ export function AdminMovieForm() {
                 </div>
                 <div className="mb-3">
                     <label htmlFor="category" className="form-label">Category</label>
-                    <select onChange={e=>setCategory(e.target.value)} className="form-select" id="category" value={category}>
-                        <option  value={0}  >-- choose</option>
-                        {categories.map(cat => <option onChange={()=>setCategory(cat.id)} key={cat.id} selected={category===cat.id ? 'selected' : '' }  value={cat.id}>-{cat.name }</option>)}
+                    <select onChange={e => setCategoryId(e.target.value)} value={categoryId} className="form-select" id="category">
+                        <option value={0}>-- choose</option>
+                        {categories.map(cat => <option key={cat.id} value={cat.id}>{cat.name}</option>)}
                     </select>
                 </div>
                 <div className="mb-3">
                     <label htmlFor="release_date" className="form-label">Release date</label>
-                    <input onChange={e=>setReleaseDate(e.target.value)} value={releaseDate} type="date" className="form-control" id="release_date" />
+                    <input onChange={e => setReleaseDate(e.target.value)} value={releaseDate} type="date" className="form-control" id="release_date" />
                 </div>
                 <div className="mb-3">
                     <label htmlFor="rating" className="form-label">Rating</label>
-                    <input onChange={e=>setRating(e.target.value*10)} value={rating/10} type="number" min="0" max="5" step="0.1" className="form-control" id="rating" />
+                    <input onChange={e => setRating(e.target.value * 10)} value={rating / 10} type="number" min="1" max="5" step="0.1" className="form-control" id="rating" />
                 </div>
                 <div className="mb-3">
                     <label className="form-label">Status</label>
                     <div className="form-check">
-                        <input onChange={()=>setStatus('published')} checked={status==='published' ? 'checked' : '' } type="radio" name="radios" className="form-check-input" id="status_published" />
+                        <input onChange={() => setStatus('published')} checked={status === 'published' ? 'checked' : ''} type="radio" name="radios" className="form-check-input" id="status_published" />
                         <label className="form-check-label" htmlFor="status_published">Published</label>
                     </div>
                     <div className="form-check">
-                        <input onChange={()=>setStatus('draft')} checked={status==='draft' ? 'checked' : '' }  type="radio" name="radios" className="form-check-input" id="status_draft" />
+                        <input onChange={() => setStatus('draft')} checked={status === 'draft' ? 'checked' : ''} type="radio" name="radios" className="form-check-input" id="status_draft" />
                         <label className="form-check-label" htmlFor="status_draft">Draft</label>
                     </div>
                 </div>
