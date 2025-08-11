@@ -88,18 +88,3 @@ export function UserContextWrapper(props) {
     );
 }
 
-/*
-KAIP NAUDOTI:
-1. Pagrindiniame App.js (ar index.js) faile apgaubti aplikaciją šiuo wrapperiu:
-   <UserContextWrapper>
-     <App />
-   </UserContextWrapper>
-
-2. Bet kurioje komponentoje gauti reikšmes:
-   const { isLoggedIn, login, logout } = useContext(UserContext);
-
-SVARBU:
-- Šis wrapperis valdo globalią vartotojo būseną
-- Visi jo vaikiniai komponentai gali pasiekti vartotojo duomenis
-- Login/logout funkcijos atnaujina būseną visoje aplikacijoje
-*/
