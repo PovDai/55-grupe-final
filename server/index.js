@@ -1,6 +1,7 @@
 import express from 'express';
 import cors from 'cors';
 import { postRegister } from './src/api/public/postRegister.js';
+import { postLogin } from './src/api/public/postLogin.js';
 
 const app = express();
 app.use(cors());
@@ -14,6 +15,7 @@ app.get('/', (req, res) => {
 });
 
 app.post('/api/register', postRegister);
+app.post('/api/login', postLogin);
 
 app.use((err, req, res, next) => {
     console.log(err);
