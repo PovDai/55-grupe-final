@@ -3,7 +3,7 @@ import { hash } from "../../lib/hash.js";
 import { IsValid } from "../../lib/IsValid.js";
 import { randomString } from "../../lib/randomString.js";
 
-export async function postRegister(req, res) {
+export async function postPublicRegister(req, res) {
     const [err, msg] = IsValid.fields(req.body, {
         username: 'username',
         email: 'email',

@@ -4,7 +4,7 @@ import { hash } from "../../lib/hash.js";
 import { IsValid } from "../../lib/IsValid.js";
 import { randomString } from "../../lib/randomString.js";
 
-export async function postLogin(req, res) {
+export async function postPublicLogin(req, res) {
     const [err, msg] = IsValid.fields(req.body, {
         usernameOrEmail: 'nonEmptyString',
         password: 'password',
@@ -91,6 +91,9 @@ export async function postLogin(req, res) {
         .json({
             status: 'success',
             msg: 'Tu buvai sekmingai prijungtas prie sistemos',
-       
+            user: {
+                email: userObj.email,
+                id: userObj.id,
+            },
         });
 }

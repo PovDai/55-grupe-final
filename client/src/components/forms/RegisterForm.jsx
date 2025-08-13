@@ -1,4 +1,4 @@
-iimport { useNavigate } from "react-router";
+import { useNavigate } from "react-router";
 
 import { useState } from "react";
 
@@ -37,7 +37,7 @@ export function RegisterForm() {
                 tos,
             }),
         })
-            .then(res => res.json())
+            .then(res =>res.json())
             .then(data => {
                 if (data.status === 'error') {
                     if (data.msg.username) {

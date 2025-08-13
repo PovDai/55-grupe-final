@@ -28,13 +28,14 @@ export function LoginForm() {
             headers: {
                 'Content-Type': 'application/json',
             },
+            credentials: 'include',
             body: JSON.stringify({
                 usernameOrEmail,
                 password,
             }),
         })
             .then(res => res.json())
-            .then(data => {
+            .then(data => { // data objekte slepiasi data {status  pvz error arba sucees : ir msg : su klaidos pranesimais kurie suvesti valid faile.  }
                 if (data.status === 'error') {
                     if (typeof data.msg === 'string') {
                         setFormErr(data.msg);
@@ -46,7 +47,9 @@ export function LoginForm() {
                         setPasswordErr(data.msg.password);
                     }
                 } else {
-                    // login('chuck@norris.lt', 1);
+                    if (data.user) {
+                        login(data.user.email, data.user.id);
+                    }
                     navigate('/admin');
                 }
             })
