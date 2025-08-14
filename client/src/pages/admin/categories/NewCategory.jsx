@@ -8,7 +8,9 @@ export function AdminNewCategoryPage() {
 
             <div className="container">
                 <div className="row">
-                    <AdminCategoryForm />
+                    <AdminCategoryForm
+                        api="http://localhost:5519/api/admin/categories"
+                        method="POST" />
                 </div>
             </div>
         </main>

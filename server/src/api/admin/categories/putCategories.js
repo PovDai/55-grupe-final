@@ -1,7 +1,7 @@
 import { connection } from "../../../db.js";
 import { IsValid } from "../../../lib/IsValid.js";
 
-export async function putCategories(req, res) {
+export async function putAdminCategories(req, res) {
     const [errParams, msgParams] = IsValid.fields(req.params, {
         original_url: 'nonEmptyString',
     });
