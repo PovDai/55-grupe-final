@@ -1,9 +1,11 @@
 import { PublicPageTitle } from '../../components/PublicPageTitle';
 import { MovieCard } from '../../components/MovieCard';
 import { MoviesFilter } from '../../components/MoviesFilter';
+import { useContext } from 'react';
+import { MoviesContext } from '../../context/movies/MoviesContext';
 
 export function MoviesPage() {
-    const moviesData = [{}, {}, {}, {}, {}, {}, {}];
+    const { publicMovies } = useContext(MoviesContext);
 
     return (
         <main className='min-page-height'>
@@ -13,7 +15,7 @@ export function MoviesPage() {
 
             <div className="container">
                 <div className="row">
-                    {moviesData.map((movie, index) => <MovieCard key={index} movie={movie} />)}
+                    {publicMovies.map((movie, index) => <MovieCard key={index} movie={movie} />)}
                 </div>
             </div>
         </main>

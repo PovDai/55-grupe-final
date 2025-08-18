@@ -20,7 +20,7 @@ export function AdminEditCategoryPage() {
                     {
                         categoryData
                             ? <AdminCategoryForm
-                                api={"http://localhost:5519/api/admin/categories/" + categoryData.id}
+                                api={"http://localhost:5519/api/admin/categories/" + categoryData.url_slug}
                                 method="PUT"
                                 category={categoryData} />
                             : (

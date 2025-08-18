@@ -1,10 +1,15 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
+import { CategoriesContext } from "../../context/categories/CategoriesContext";
+import { useNavigate } from "react-router";
 
 export function AdminCategoryForm({ api, method, category }) {
     const [title, setTitle] = useState(category?.title ?? '');
     const [url, setUrl] = useState(category?.url_slug ?? '');
     const [description, setDescription] = useState(category?.description ?? '');
     const [status, setStatus] = useState(category?.status_name ?? 'draft');
+
+    const { updateAdminCategories, updatePublicCategories } = useContext(CategoriesContext);
+    const navigate = useNavigate();
 
     function handleFormSubmit(e) {
         e.preventDefault();
@@ -24,7 +29,11 @@ export function AdminCategoryForm({ api, method, category }) {
         })
             .then(res => res.json())
             .then(data => {
-                console.log(data);
+                if (data.status === 'success') {
+                    updatePublicCategories();
+                    updateAdminCategories();
+                    navigate('/admin/categories');
+                }
             })
             .catch(console.error);
     }

@@ -9,7 +9,7 @@ export function CategoriesContextWrapper(props) {
 
     const { isLoggedIn } = useContext(UserContext);
 
-    useEffect(() => {
+    function updatePublicCategories() {
         fetch('http://localhost:5519/api/categories', {
             method: 'GET',
         })
@@ -20,39 +20,57 @@ export function CategoriesContextWrapper(props) {
                 }
             })
             .catch(console.error);
-    }, []);
+    }
+
+    function updateAdminCategories() {
+        fetch('http://localhost:5519/api/admin/categories', {
+            method: 'GET',
+            credentials: 'include',
+        })
+            .then(res => res.json())
+            .then(data => {
+                if (data.status === 'success') {
+                    setAdminCategories(() => data.categories);
+                }
+            })
+            .catch(console.error);
+    }
+
+    function deletePublicCategory(urlSlug) {
+        setPublicCategories(currentList => currentList.filter(category => category.url_slug !== urlSlug));
+    }
+
+    function deleteAdminCategory(urlSlug) {
+        setAdminCategories(currentList => currentList.filter(category => category.url_slug !== urlSlug));
+    }
+
+    function getPublicCategoryByUrlSlug(urlSlug) {
+        return publicCategories.find(category => category.url_slug === urlSlug);
+    }
+
+    function getAdminCategoryByUrlSlug(urlSlug) {
+        return adminCategories.find(category => category.url_slug === urlSlug);
+    }
+
+    useEffect(updatePublicCategories, []);
 
     useEffect(() => {
         if (isLoggedIn) {
-            fetch('http://localhost:5519/api/admin/categories', {
-                method: 'GET',
-                credentials: 'include',
-            })
-                .then(res => res.json())
-                .then(data => {
-                    if (data.status === 'success') {
-                        setAdminCategories(() => data.categories);
-                    }
-                })
-                .catch(console.error);
+            updateAdminCategories();
         } else {
             setAdminCategories(() => initialCategoriesContext.adminCategories);
         }
     }, [isLoggedIn]);
-
-    function getPublicCategoryByUrlSlug(url) {
-        return publicCategories.find(cat => cat.url_slug === url);
-    }
-
-    function getAdminCategoryByUrlSlug(url) {
-        return adminCategories.find(cat => cat.url_slug === url);
-    }
 
     const values = {
         publicCategories,
         adminCategories,
         getPublicCategoryByUrlSlug,
         getAdminCategoryByUrlSlug,
+        updatePublicCategories,
+        updateAdminCategories,
+        deletePublicCategory,
+        deleteAdminCategory,
     };
 
     return (

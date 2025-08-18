@@ -3,13 +3,14 @@
 import { connection } from "../../../db.js";
 import { IsValid } from "../../../lib/IsValid.js";
 
-export async function postMovies(req, res) {
+export async function postAdminMovies(req, res) {
     const [err, msg] = IsValid.fields(req.body, {
         title: 'nonEmptyString',
         url: 'nonEmptyString',
         duration: 'numberInteger',
         category: 'numberInteger',
         status: 'nonEmptyString',
+        img: 'nonEmptyString',
     }, {
         description: 'nonEmptyString',
         releaseDate: 'nonEmptyString',
@@ -23,8 +24,9 @@ export async function postMovies(req, res) {
         });
     }
 
-    const { title, url, status, duration } = req.body;
+    const { title, url, status, duration, img } = req.body;
     let { category, description, releaseDate, rating } = req.body;
+    const imgPath = img.split('/').at(-1);
 
     if (category === 0) {
         category = null;
@@ -60,12 +62,12 @@ export async function postMovies(req, res) {
     try {
         const sql = `
             INSERT INTO movies
-                (title, url_slug, category_id, status_id, description, release_data, duration_in_minutes, rating)
-            VALUES (?, ?, ?,
+                (img, title, url_slug, category_id, status_id, description, release_date, duration_in_minutes, rating)
+            VALUES (?, ?, ?, ?,
                 (SELECT id FROM general_status WHERE name = ?),
                 ?, ?, ?, ?);`;
         const [response] = await connection.execute(sql,
-            [title, url, category, status, description, releaseDate, duration, rating * 10]
+            [imgPath, title, url, category, status, description, releaseDate, duration, rating * 10]
         );
 
         if (response.affectedRows !== 1) {

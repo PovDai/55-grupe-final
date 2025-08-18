@@ -1,7 +1,7 @@
 import { connection } from "../../../db.js";
 import { IsValid } from "../../../lib/IsValid.js";
 
-export async function deleteCategories(req, res) {
+export async function deleteAdminCategories(req, res) {
     const [err, msg] = IsValid.fields(req.params, {
         url: 'nonEmptyString',
     });
