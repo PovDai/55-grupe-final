@@ -22,6 +22,7 @@ import { deleteAdminMovies } from './src/api/admin/movies/deleteMovies.js';
 
 const app = express();
 
+app.use(express.static('public'));
 app.use(express.json());
 app.use(helmet());
 app.use(cors({

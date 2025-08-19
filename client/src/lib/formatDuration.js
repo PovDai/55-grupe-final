@@ -1,4 +1,4 @@
-export function formatDuration(duration = 35.5) {
+export function formatDuration(duration = 0) {
     if (duration < 1) {
         return '-';
     }
@@ -26,4 +26,3 @@ export function formatDuration(duration = 35.5) {
 
     return text;
 }
-
