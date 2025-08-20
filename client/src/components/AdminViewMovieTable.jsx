@@ -3,12 +3,13 @@ import { formatDuration } from "../lib/formatDuration";
 import { formatRating } from "../lib/formatRating";
 import { CategoriesContext } from "../context/categories/CategoriesContext";
 import defaultImg from '../assets/default.png';
+import { SERVER_ADDRESS } from "../env";
 
 export function AdminViewMovieTable({ movieData }) {
     const { getAdminCategoryById } = useContext(CategoriesContext);
 
     const categoryData = getAdminCategoryById(movieData.category_id);
-    const imgPath = movieData.img ? ('http://localhost:5519/img/movies/' + movieData.img) : defaultImg;
+    const imgPath = movieData.img ? (SERVER_ADDRESS + '/img/movies/' + movieData.img) : defaultImg;
 
     return (
         <table className="table table-bordered border-primary">

@@ -3,6 +3,7 @@ import { useContext, useEffect, useState } from "react";
 import { CategoriesContext } from "./CategoriesContext";
 import { initialCategoriesContext } from "./initialCategoriesContext";
 import { UserContext } from "../user/UserContext";
+import { SERVER_ADDRESS } from "../../env.js";
 
 export function CategoriesContextWrapper(props) {
     const [publicCategories, setPublicCategories] = useState(initialCategoriesContext.publicCategories);
@@ -11,20 +12,21 @@ export function CategoriesContextWrapper(props) {
     const { isLoggedIn } = useContext(UserContext);
 
     function updatePublicCategories() {
-        fetch('http://localhost:5519/api/categories', {
+        fetch(SERVER_ADDRESS+'/api/categories', {
             method: 'GET',
         })
             .then(res => res.json())
             .then(data => {
+        
                 if (data.status === 'success') {
-                    setPublicCategories(() => data.categories);
+                    setPublicCategories(() => data.categories);// atkeliauja is server responto eilutes file src/getCategories.js
                 }
             })
             .catch(console.error);
     }
 
     function updateAdminCategories() {
-        fetch('http://localhost:5519/api/admin/categories', {
+        fetch(SERVER_ADDRESS+'/api/admin/categories', {
             method: 'GET',
             credentials: 'include',
         })
@@ -45,7 +47,7 @@ export function CategoriesContextWrapper(props) {
         setAdminCategories(currentList => currentList.filter(category => category.url_slug !== urlSlug));
     }
 
-    function getPublicCategoryByUrlSlug(urlSlug) {
+    function getPublicCategoryByUrlSlug(urlSlug) { // atkeliauja is server api/admin/editCategory.js per useParams.
         return publicCategories.find(category => category.url_slug === urlSlug);
     }
 
@@ -58,6 +60,12 @@ export function CategoriesContextWrapper(props) {
     }
 
     useEffect(updatePublicCategories, []);
+/*useEffect priima du argumentus:
+pirmas → funkcija, kurią reikia vykdyti (čia: updatePublicCategories)
+antras → priklausomybių masyvas (čia: [])
+[] (tuščias masyvas) reiškia, kad efektas bus paleistas tik vieną kartą – po pirmo komponento užkrovimo (mount).
+Tai atitinka klasikinį componentDidMount.
+Kadangi tu paduodi tiesiai updatePublicCategories (be anoniminės funkcijos), useEffect iškvies ją automatiškai iškart po renderio.*/
 
     useEffect(() => {
         if (isLoggedIn) {

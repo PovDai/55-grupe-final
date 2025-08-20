@@ -2,7 +2,7 @@ import { connection } from "../../../db.js";
 import { IsValid } from "../../../lib/IsValid.js";
 
 export async function putAdminCategories(req, res) {
-    const [errParams, msgParams] = IsValid.fields(req.params, {
+    const [errParams, msgParams] = IsValid.fields(req.params, { // ateklauja msg is isValid statiniu funkciju
         original_url: 'nonEmptyString',
     });
 
@@ -28,7 +28,7 @@ export async function putAdminCategories(req, res) {
         });
     }
 
-    const { original_url } = req.params;
+    const { original_url } = req.params; // pasiima is index.js kas po /:
     const { title, url, status, description } = req.body;
 
     try {

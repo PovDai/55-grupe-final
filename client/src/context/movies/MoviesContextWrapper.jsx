@@ -2,6 +2,7 @@ import { useContext, useEffect, useState } from "react";
 import { MoviesContext } from "./MoviesContext";
 import { initialMoviesContext } from "./initialMoviesContext";
 import { UserContext } from "../user/UserContext";
+import { SERVER_ADDRESS } from "../../env.js";
 
 export function MoviesContextWrapper(props) {
     const [publicMovies, setPublicMovies] = useState(initialMoviesContext.publicMovies);
@@ -10,7 +11,7 @@ export function MoviesContextWrapper(props) {
     const { isLoggedIn } = useContext(UserContext);
 
     function updatePublicMovies() {
-        fetch('http://localhost:5519/api/movies', {
+        fetch(SERVER_ADDRESS+'/api/movies', {
             method: 'GET',
         })
             .then(res => res.json())
@@ -23,14 +24,14 @@ export function MoviesContextWrapper(props) {
     }
 
     function updateAdminMovies() {
-        fetch('http://localhost:5519/api/admin/movies', {
+        fetch(SERVER_ADDRESS+'/api/admin/movies', {
             method: 'GET',
             credentials: 'include',
         })
             .then(res => res.json())
             .then(data => {
                 if (data.status === 'success') {
-                    setAdminMovies(() => data.movies);
+                    setAdminMovies(() => data.movies);// movies atkeliauja is server src/getMovies.js file. is ten servers siuncia json formatu. 
                 }
             })
             .catch(console.error);
@@ -61,6 +62,17 @@ export function MoviesContextWrapper(props) {
             setAdminMovies(() => initialMoviesContext.adminMovies);
         }
     }, [isLoggedIn]);
+
+/*useEffect – tai React hook'as, kuris leidžia paleisti tam tikrą logiką (efektą) kiekvieną kartą, kai pasikeičia nurodytos priklausomybės (dependency array).
+Čia priklausomybė yra isLoggedIn, todėl useEffect bus paleistas kiekvieną kartą, kai pasikeis prisijungimo būsena.
+if (isLoggedIn)
+Jei vartotojas yra prisijungęs, iškviečiama updateAdminMovies() funkcija.
+Tikėtina, kad ji atsiunčia ar atnaujina filmų duomenis administratoriui.
+else (jei vartotojas atsijungęs)
+Iškviečiamas setAdminMovies() su pradiniu reikšmių rinkiniu (initialMoviesContext.adminMovies).
+Tai reiškia, kad filmų sąrašas atstatomas į pradinę būseną, kai vartotojas nebeprisijungęs.
+}, [isLoggedIn]);
+Dėl šios priklausomybės efektas bus paleidžiamas tik tada, kai pasikeis isLoggedIn reikšmė (nuo false į true arba atvirkščiai).*/
 
     const values = {
         publicMovies,

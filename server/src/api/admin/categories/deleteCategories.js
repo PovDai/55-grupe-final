@@ -13,7 +13,7 @@ export async function deleteAdminCategories(req, res) {
         });
     }
 
-    const { url } = req.params;
+    const { url } = req.params; // pasiima is index.js kas po /: 
 
     try {
         const sql = `DELETE FROM categories WHERE url_slug = ?;`;

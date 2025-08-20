@@ -1,13 +1,14 @@
 import { useContext } from 'react';
 import { Link } from 'react-router';
 import { CategoriesContext } from '../../context/categories/CategoriesContext';
+import { SERVER_ADDRESS } from '../../env';
 
 export function AdminCategoriesTableRow({ data }) {
     const { deletePublicCategory, deleteAdminCategory } = useContext(CategoriesContext);
     const urlSlug = data.url_slug;
 
     function handleDeleteClick() {
-        fetch('http://localhost:5519/api/admin/categories/' + urlSlug, {
+        fetch(SERVER_ADDRESS + '/api/admin/categories/' + urlSlug, {
             method: 'DELETE',
             credentials: 'include',
         })

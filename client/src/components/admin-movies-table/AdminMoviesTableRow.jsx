@@ -3,6 +3,7 @@ import { Link } from 'react-router';
 import { CategoriesContext } from '../../context/categories/CategoriesContext';
 import { formatDuration } from '../../lib/formatDuration';
 import defaultImg from '../../assets/default.png';
+import { SERVER_ADDRESS } from '../../env';
 
 export function AdminMoviesTableRow({ data }) {
     const { adminCategories } = useContext(CategoriesContext);
@@ -11,7 +12,7 @@ export function AdminMoviesTableRow({ data }) {
         return;
     }
 
-    const imgPath = data.img ? ('http://localhost:5519/img/movies/' + data.img) : defaultImg;
+    const imgPath = data.img ? (SERVER_ADDRESS + '/img/movies/' + data.img) : defaultImg;
 
     return (
         <tr>
@@ -22,7 +23,7 @@ export function AdminMoviesTableRow({ data }) {
             <td>{
                 data.duration_in_minutes
                     ? formatDuration(data.duration_in_minutes)
-                    : <span class="badge text-bg-warning">Not selected</span>
+                    : <span className="badge text-bg-warning">Not selected</span>
             }</td>
             <td>
                 {

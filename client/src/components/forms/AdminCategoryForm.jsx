@@ -2,7 +2,7 @@ import { useContext, useState } from "react";
 import { CategoriesContext } from "../../context/categories/CategoriesContext";
 import { useNavigate } from "react-router";
 
-export function AdminCategoryForm({ api, method, category }) {
+export function AdminCategoryForm({ api, method, category }) { // api/method ir category ateina is pages/edit category file
     const [title, setTitle] = useState(category?.title ?? '');
     const [url, setUrl] = useState(category?.url_slug ?? '');
     const [description, setDescription] = useState(category?.description ?? '');

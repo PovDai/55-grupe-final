@@ -113,7 +113,7 @@ export class IsValid {
         return [false, ''];
     }
 
-     static email(text) {
+    static email(text) {
         if (typeof text !== 'string') {
             return [true, 'El. pastas turi buti tekto tipo.'];
         }
@@ -132,6 +132,7 @@ export class IsValid {
 
         return [false, ''];
     }
+
     static nonEmptyString(text) {
         if (typeof text !== 'string') {
             return [true, 'Turi buti tekstas'];
@@ -175,6 +176,37 @@ export class IsValid {
 
         if (n < 0) {
             return [true, 'Turi buti teigiamas skaicius'];
+        }
+
+        return [false, ''];
+    }
+
+    static url(text) {
+        if (typeof text !== 'string') {
+            return [true, 'Turi buti tekstas'];
+        }
+
+        text = text.trim();
+
+        if (text.length === 0) {
+            return [true, 'Nuoroda turi buti ne tuscia'];
+        }
+
+        if (text.includes(' ')) {
+            return [true, 'Nuoroda negali tureti tarpo simbolio'];
+        }
+
+        const allowedSymbols = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-_!';
+        const errors = [];
+
+        for (const s of text) {
+            if (!allowedSymbols.includes(s) && !errors.includes(s)) {
+                errors.push(s);
+            }
+        }
+
+        if (errors.length) {
+            return [true, `Nuoroda negali tureti siu simboliu: ${errors.join(', ')}`];
         }
 
         return [false, ''];

@@ -3,7 +3,12 @@ import { connection } from "../../db.js";
 export async function getPublicCategories(req, res) {
     try {
         const sql = `
-            SELECT *, 0 AS moviesCount
+            SELECT *,
+            (
+                SELECT COUNT(*)
+                FROM movies
+                WHERE category_id = categories.id
+            ) AS moviesCount
             FROM categories
             WHERE status_id = (
                 SELECT id FROM general_status WHERE name = "published"

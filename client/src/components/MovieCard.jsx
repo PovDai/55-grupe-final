@@ -10,9 +10,6 @@ export function MovieCard({ movie }) {
         return;
     }
 
-    console.log(movie);
-    console.log(publicCategories);
-
     return (
         <div className="col-12 col-md-6">
             <div className="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">

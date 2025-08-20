@@ -1,6 +1,7 @@
 import { useContext, useState } from "react";
 import { useNavigate } from "react-router";
 import { UserContext } from "../../context/user/UserContext";
+import { SERVER_ADDRESS } from "../../env";
 
 export function LoginForm() {
     const navigate = useNavigate();
@@ -23,7 +24,7 @@ export function LoginForm() {
         setUsernameOrEmailErr('');
         setPasswordErr('');
 
-        fetch('http://localhost:5519/api/login', {
+        fetch(SERVER_ADDRESS + '/api/login', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -35,7 +36,7 @@ export function LoginForm() {
             }),
         })
             .then(res => res.json())
-            .then(data => { // data objekte slepiasi data {status  pvz error arba sucees : ir msg : su klaidos pranesimais kurie suvesti valid faile.  }
+            .then(data => {
                 if (data.status === 'error') {
                     if (typeof data.msg === 'string') {
                         setFormErr(data.msg);

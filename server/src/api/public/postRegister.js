@@ -5,7 +5,7 @@ import { randomString } from "../../lib/randomString.js";
 
 export async function postPublicRegister(req, res) {
     const [err, msg] = IsValid.fields(req.body, {
-        username: 'username',
+        username: 'username', // sie per req.body iskeliauja i client dali loginFormoje paimamai
         email: 'email',
         password: 'password',
         tos: 'tos',
