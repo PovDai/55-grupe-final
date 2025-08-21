@@ -1,5 +1,6 @@
 import { AdminPageTitle } from "../../../components/AdminPageTitle";
 import { AdminCategoryForm } from "../../../components/forms/AdminCategoryForm";
+import { SERVER_ADDRESS } from "../../../env.js";
 
 export function AdminNewCategoryPage() {
     return (

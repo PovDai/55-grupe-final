@@ -37,6 +37,8 @@ export function LoginForm() {
         })
             .then(res => res.json())
             .then(data => {
+                console.log(data)
+                
                 if (data.status === 'error') {
                     if (typeof data.msg === 'string') {
                         setFormErr(data.msg);
